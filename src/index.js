@@ -4,7 +4,7 @@ import './index.css';
 
 class App extends React.Component {
     state = {
-      tasks: ['task 1', 'task 2', 'task 3']
+      tasks: ['create todolist', 'learn react', 'sleep']
     };
   
     handleSubmit = task => {
@@ -19,12 +19,18 @@ class App extends React.Component {
   
     render() {
       return(
+        <div>
         <div className='wrapper'>
-          <div className='card frame'>
-            <Header numTodos={this.state.tasks.length} />
-            <TodoList tasks={this.state.tasks} onDelete={this.handleDelete} />
+          {/* <div className='card frame'> */}
             <SubmitForm onFormSubmit={this.handleSubmit} />
-          </div>
+          {/* </div> */}
+        </div>
+        <div className='todolist'>
+            <TodoList tasks={this.state.tasks} onDelete={this.handleDelete} />
+        </div>
+        <div className='header'>
+          <Header numTodos={this.state.tasks.length} />
+        </div>
         </div>
       );
     } 
@@ -46,11 +52,11 @@ class SubmitForm extends React.Component {
           <input 
             type='text'
             className='input'
-            placeholder='Enter Item'
+            placeholder='Enter task'
             value={this.state.term}
             onChange={(e) => this.setState({term: e.target.value})}
           />
-          <button className='button'>Submit</button>
+          <button className='button'>add</button>
         </form>
       );
     }
@@ -60,9 +66,9 @@ class SubmitForm extends React.Component {
   const Header = (props) => {
     return(
       <div className='card-header'>
-        <h1 className='card-header-title header'>
-          You have {props.numTodos} Todos
-        </h1>
+        <h4 className='card-header-title header'>
+          You have {props.numTodos} Todos left
+        </h4>
       </div>
     )
   }
@@ -83,7 +89,7 @@ class SubmitForm extends React.Component {
     return(
       <div className='list-item'>
         {props.content}
-        <button class="delete is-pulled-right" onClick={() => {props.onDelete(props.id)}}></button>
+        <button class="delButton" onClick={() => {props.onDelete(props.id)}}>X</button>
       </div>
     );
   }
